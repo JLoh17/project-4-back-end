@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      unique: "Users_email_key" // set as unique: true in migrations
+      unique: "Users_email_key"
     },
     passwordHash: {
       type: DataTypes.STRING(255),
@@ -36,6 +36,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
+    },
+    pointsBalance: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
     }
   }, {
     sequelize,

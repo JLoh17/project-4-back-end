@@ -1,0 +1,44 @@
+const { body } = require('express-validator')
+const multer = require('multer')
+
+const { authenticateCurrentUserByToken, checkValidation } = require('../../../_helpers')
+
+
+const permittedChangeParams = ['firstName', 'lastName', 'email', 'telephone', 'address']
+
+const validation = [
+  body('firstName')
+    .isString().withMessage('First Name must be a String')
+    .notEmpty().withMessage('First Name is Required'),
+  body('lastName')
+    .isString().withMessage('Last Name must be a String')
+    .notEmpty().withMessage('Last Name is Required'),
+  body('email')
+    .notEmpty().withMessage('Email is Required')
+    .isEmail().withMessage('Email must be valid'),
+    body('telephone')
+    .notEmpty().withMessage('Telephone number is Required')
+    .isInt().withMessage('Input field must be a number'),
+  body('address')
+    .isString().withMessage('Address must be a String')
+    .notEmpty().withMessage('Address is Required'),
+]
+
+const apiMyProfileUpdate = async function(req, res) {
+  const { locals: { currentUser } } = res
+
+  const newInfo = { ...req.body }
+
+  await currentUser.update(newInfo, { fields: permittedChangeParams })
+
+  res.status(204).json()
+
+}
+
+module.exports = [
+  multer().none(),
+  authenticateCurrentUserByToken,
+  validation,
+  checkValidation,
+  apiMyProfileUpdate
+]

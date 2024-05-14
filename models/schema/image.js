@@ -14,6 +14,14 @@ module.exports = function(sequelize, DataTypes) {
     ProductId: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    imageURL2: {
+      type: DataTypes.STRING(500),
+      allowNull: true
+    },
+    imageURL3: {
+      type: DataTypes.STRING(500),
+      allowNull: true
     }
   }, {
     sequelize,
